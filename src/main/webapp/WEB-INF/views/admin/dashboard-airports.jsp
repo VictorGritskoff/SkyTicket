@@ -31,30 +31,26 @@
 </header>
 
 <jsp:include page="/WEB-INF/views/common/dashboard.jsp"/>
-<jsp:include page="/WEB-INF/views/common/addAirportModal.jsp"/>  REMOVE
+<jsp:include page="/WEB-INF/views/common/addAirportModal.jsp"/>
 <main class="container mt-5 main-content">
     <h1>Список Аэропортов</h1>
-    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addFlightModal">
+    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addAirportModal">
         Добавить аэропорт
     </button>
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
-            <th>Номер рейса</th>
-            <th>Отправление</th>
-            <th>Назначение</th>
-            <th>Вылет</th>
-            <th>Прибытие</th>
+            <th>Название</th>
+            <th>Город</th>
+            <th>Страна</th>
             <th>Действия</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>AB123</td>
-            <td>Москва (Шереметьево)</td>
-            <td>Париж (Шарль де Голль)</td>
-            <td>2024-12-10 14:30</td>
-            <td>2024-12-10 16:45</td>
+            <td>Шереметьево</td>
+            <td>Москва</td>
+            <td>Россия</td>
             <td>
                 <button class="btn btn-primary btn-sm">Просмотр</button>
                 <button class="btn btn-warning btn-sm">Редактировать</button>

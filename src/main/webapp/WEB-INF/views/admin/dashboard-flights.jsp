@@ -41,10 +41,10 @@
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
-            <th>Номер</th>
-            <th>Откуда</th>
-            <th>Куда</th>
-            <th>Когда</th>
+            <th>Номер рейса</th>
+            <th>Отправление</th>
+            <th>Назначение</th>
+            <th>Вылет</th>
             <th>Прибытие</th>
             <th>Действия</th>
         </tr>
@@ -52,8 +52,8 @@
         <tbody>
         <tr>
             <td>AB123</td>
-            <td>Москва</td>
-            <td>Париж</td>
+            <td>Шереметьево</td>
+            <td>Хитроу</td>
             <td>2024-12-10 14:30</td>
             <td>2024-12-10 16:45</td>
             <td>
