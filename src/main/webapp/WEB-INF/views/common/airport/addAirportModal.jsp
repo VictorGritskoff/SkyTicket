@@ -9,12 +9,13 @@
 <div class="modal fade" id="addAirportModal" tabindex="-1" aria-labelledby="addAirportModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form id="addAirportForm" method="post" action="${pageContext.request.contextPath}/dashboard/airports">
+      <form id="addAirportForm" method="post" action="${pageContext.request.contextPath}/dashboard/airport">
         <div class="modal-header">
-          <h5 class="modal-title" id="addAirportModalLabel">Добавить аэропорт</h5>
+          <h5 class="modal-title" id="addAirportModalLabel">Модальное окно</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
         </div>
         <div class="modal-body">
+          <input type="hidden" id="airportId" name="id">
           <div class="mb-3">
             <label for="airportName" class="form-label">Название аэропорта</label>
             <input type="text" class="form-control" id="airportName" name="airportName" required>

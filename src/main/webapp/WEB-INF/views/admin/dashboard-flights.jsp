@@ -31,7 +31,7 @@
 </header>
 
 <jsp:include page="/WEB-INF/views/common/dashboard.jsp"/>
-<jsp:include page="/WEB-INF/views/common/addFlightModal.jsp"/>
+<jsp:include page="/WEB-INF/views/common/flight/addFlightModal.jsp"/>
 <h1>Добро пожаловать!</h1>
 <main class="container mt-5 main-content">
     <h1>Список рейсов</h1>

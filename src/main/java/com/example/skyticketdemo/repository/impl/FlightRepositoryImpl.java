@@ -1,65 +1,66 @@
 package com.example.skyticketdemo.repository.impl;
 
 import com.example.skyticketdemo.entity.Airport;
-import com.example.skyticketdemo.repository.interfac.AirportRepository;
+import com.example.skyticketdemo.entity.Flight;
+import com.example.skyticketdemo.repository.interfac.FlightRepository;
 import com.example.skyticketdemo.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class AirportRepositoryImpl implements AirportRepository {
+public class FlightRepositoryImpl implements FlightRepository {
 
     @Override
-    public void save(Airport airport) {
+    public void save(Flight flight) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSession()) {
             transaction = session.beginTransaction();
-            session.persist(airport);
+            session.persist(flight);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
-            throw new RuntimeException("Ошибка сохранения аэропорта: " + airport, e);
+            throw new RuntimeException("Ошибка сохранения рейса: " + flight, e);
         }
     }
 
     @Override
-    public Airport findById(Long id) {
+    public Flight findById(Long id) {
         try (Session session = HibernateUtil.getSession()){
-            return session.find(Airport.class, id);
+            return session.find(Flight.class, id);
         }
     }
 
     @Override
-    public List<Airport> findAll() {
+    public List<Flight> findAll() {
         try (Session session = HibernateUtil.getSession()){
-            return session.createQuery("FROM Airport", Airport.class).getResultList(); // Возможна ошибка
+            return session.createQuery("FROM Flight", Flight.class).getResultList();
         }
     }
 
     @Override
-    public void update(Airport airport) {
+    public void update(Flight flight) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSession()) {
             transaction = session.beginTransaction();
-            session.merge(airport);
+            session.merge(flight);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
-            throw new RuntimeException("Ошибка обновления данных аэропорта: " + airport, e);
+            throw new RuntimeException("Ошибка обновления данных аэропорта: " + flight, e);
         }
     }
 
     @Override
-    public void delete(Airport airport) {
+    public void delete(Flight flight) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSession()) {
             transaction = session.beginTransaction();
-            session.remove(session.contains(airport) ? airport : session.merge(airport));
+            session.remove(session.contains(flight) ? flight : session.merge(flight));
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
-            throw new RuntimeException("Ошибка удаления аэропорта: " + airport, e);
+            throw new RuntimeException("Ошибка удаления аэропорта: " + flight, e);
         }
     }
 }

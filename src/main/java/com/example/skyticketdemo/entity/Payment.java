@@ -20,7 +20,7 @@ public class Payment {
     @JoinColumn(name = "TicketID", referencedColumnName = "TicketID")
     private Ticket ticket;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false)
     private Double amount;
 
     @Column(nullable = false)

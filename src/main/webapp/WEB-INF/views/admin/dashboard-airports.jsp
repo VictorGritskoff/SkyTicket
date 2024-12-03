@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -31,12 +32,10 @@
 </header>
 
 <jsp:include page="/WEB-INF/views/common/dashboard.jsp"/>
-<jsp:include page="/WEB-INF/views/common/addAirportModal.jsp"/>
+<jsp:include page="/WEB-INF/views/common/airport/addAirportModal.jsp"/>
 <main class="container mt-5 main-content">
     <h1>Список Аэропортов</h1>
-    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addAirportModal">
-        Добавить аэропорт
-    </button>
+    <button class="btn btn-success mb-3" onclick="openAirportModal('add')">Добавить аэропорт</button>
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
@@ -47,20 +46,72 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>Шереметьево</td>
-            <td>Москва</td>
-            <td>Россия</td>
-            <td>
-                <button class="btn btn-primary btn-sm">Просмотр</button>
-                <button class="btn btn-warning btn-sm">Редактировать</button>
-                <button class="btn btn-danger btn-sm">Удалить</button>
-            </td>
-        </tr>
+        <c:forEach var="airport" items="${airports}">
+            <tr>
+                <td>${airport.airportName}</td>
+                <td>${airport.city}</td>
+                <td>${airport.country}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm"
+                            onclick="openAirportModal('edit', { id: ${airport.airportID}, airportName: '${airport.airportName}', city: '${airport.city}', country: '${airport.country}' })">
+                        Редактировать
+                    </button>
+                    <button class="btn btn-danger btn-sm" onclick="showDeleteModal(${airport.airportID})">Удалить</button>
+                </td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
 </main>
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function showDeleteModal(airportID) {
+        if (confirm('Вы уверены, что хотите удалить этот аэропорт?')) {
+            fetch('/dashboard/airport/delete?id=' + airportID, {
+                method: 'DELETE',
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Аэропорт успешно удален');
+                        location.reload();
+                    } else {
+                        response.text().then(text => alert('Ошибка: ' + text));
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка при удалении:', error);
+                    alert('Ошибка при удалении');
+                });
+        }
+    }
+
+    function openAirportModal(action, airport = null) {
+        const airportIdField = document.getElementById('airportId');
+        const airportNameField = document.getElementById('airportName');
+        const cityField = document.getElementById('city');
+        const countryField = document.getElementById('country');
+        const modalTitle = document.getElementById('addAirportModalLabel');
+
+        if (action === 'add') {
+            modalTitle.textContent = 'Добавить аэропорт';
+            airportIdField.value = '';
+            airportNameField.value = '';
+            cityField.value = '';
+            countryField.value = '';
+        } else if (action === 'edit' && airport) {
+            modalTitle.textContent = 'Редактировать аэропорт';
+            airportIdField.value = airport.id;
+            airportNameField.value = airport.airportName;
+            cityField.value = airport.city;
+            countryField.value = airport.country;
+        }
+
+        const modal = new bootstrap.Modal(document.getElementById('addAirportModal'));
+        modal.show();
+    }
+
+
+</script>
 </body>
 </html>
