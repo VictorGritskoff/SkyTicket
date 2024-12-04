@@ -128,7 +128,6 @@ a{
     font-size: 1.25rem;
 }
 
-/*Active links*/
 .active{
     color: var(--white-color);
 }

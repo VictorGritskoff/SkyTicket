@@ -31,7 +31,6 @@ public class AirportsDashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             List<AirportDTO> airports = airportService.getAllAirports();
-            System.out.println(airports);
             request.setAttribute("airports", airports);
         } catch (Exception e) {
             log.error("Ошибка при загрузке списка аэропортов: ", e);

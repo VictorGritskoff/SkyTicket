@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <div class="l-navbar" id="nav-bar">
     <nav class="nav">
         <div>
@@ -15,19 +17,19 @@
             </a>
 
             <div class="nav__list">
-                <a href="${pageContext.request.contextPath}/dashboard/flights" class="nav__link active">
+                <a href="${pageContext.request.contextPath}/dashboard/flights" class="nav__link ${isFlightsActive ? 'active' : ''}">
                     <i class="bi bi-calendar-check"></i>
                     <span class="nav__name">Рейсы</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/dashboard/airport" class="nav__link">
+                <a href="${pageContext.request.contextPath}/dashboard/airport" class="nav__link ${isAirportActive ? 'active' : ''}">
                     <i class="bi bi-buildings"></i>
                     <span class="nav__name">Аэропорты</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/dashboard/airlines" class="nav__link">
+                <a href="${pageContext.request.contextPath}/dashboard/airlines" class="nav__link ${isAirlinesActive ? 'active' : ''}">
                     <i class="bi bi-airplane"></i>
                     <span class="nav__name">Авиалинии</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/dashboard/payments" class="nav__link">
+                <a href="${pageContext.request.contextPath}/dashboard/payments" class="nav__link ${isPaymentsActive ? 'active' : ''}">
                     <i class="bi bi-credit-card"></i>
                     <span class="nav__name">Платежи</span>
                 </a>
