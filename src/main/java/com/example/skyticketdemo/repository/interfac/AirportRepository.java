@@ -8,6 +8,7 @@ public interface AirportRepository {
     void save(Airport airport);
     Airport findById(Long id);
     List<Airport> findAll();
+    List<Airport> findAllByName(List<String> ids);
     void update(Airport airport);
     void delete(Airport airport);
 }

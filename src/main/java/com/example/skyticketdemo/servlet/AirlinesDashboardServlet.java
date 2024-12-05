@@ -20,6 +20,8 @@ import java.util.List;
 @Slf4j
 @WebServlet({"/dashboard/airlines"})
 public class AirlinesDashboardServlet extends HttpServlet {
+
+    private final String PAGE = "/WEB-INF/views/admin/dashboard-airlines.jsp";
     private final AirlineService airlineService;
 
     public AirlinesDashboardServlet() {
@@ -37,8 +39,8 @@ public class AirlinesDashboardServlet extends HttpServlet {
             log.error("Ошибка при загрузке списка авиалиний: ", e);
             request.setAttribute("errorMessage", "Ошибка при загрузке списка авиалиний.");
         }
-        String jspPage = "/WEB-INF/views/admin/dashboard-airlines.jsp";
-        request.getRequestDispatcher(jspPage).forward(request, response);
+
+        request.getRequestDispatcher(PAGE).forward(request, response);
     }
 
     @Override
@@ -62,7 +64,7 @@ public class AirlinesDashboardServlet extends HttpServlet {
         } catch (Exception e) {
             log.error("Ошибка при сохранении или обновлении авиалинии: ", e);
             request.setAttribute("errorMessage", "Ошибка при сохранении или обновлении авиалинии. Пожалуйста, попробуйте снова.");
-            request.getRequestDispatcher("/WEB-INF/views/admin/dashboard-airlines.jsp").forward(request, response);
+            request.getRequestDispatcher(PAGE).forward(request, response);
         }
     }
 

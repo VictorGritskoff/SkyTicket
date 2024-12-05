@@ -1,6 +1,5 @@
 package com.example.skyticketdemo.repository.impl;
 
-import com.example.skyticketdemo.entity.Airport;
 import com.example.skyticketdemo.entity.Flight;
 import com.example.skyticketdemo.repository.interfac.FlightRepository;
 import com.example.skyticketdemo.utils.HibernateUtil;
@@ -47,7 +46,7 @@ public class FlightRepositoryImpl implements FlightRepository {
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
-            throw new RuntimeException("Ошибка обновления данных аэропорта: " + flight, e);
+            throw new RuntimeException("Ошибка обновления данных рейса: " + flight, e);
         }
     }
 
@@ -60,7 +59,7 @@ public class FlightRepositoryImpl implements FlightRepository {
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
-            throw new RuntimeException("Ошибка удаления аэропорта: " + flight, e);
+            throw new RuntimeException("Ошибка удаления рейса: " + flight, e);
         }
     }
 }

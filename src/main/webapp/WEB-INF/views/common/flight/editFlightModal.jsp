@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: vitya
-  Date: 30.11.2024
-  Time: 21:41
+  Date: 05.12.2024
+  Time: 23:22
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,8 +11,8 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <form id="addFlightForm" method="post" action="${pageContext.request.contextPath}/dashboard/flights">
-      <div class="modal-header">
-          <h5 class="modal-title" id="addFlightModalLabel">Добавить рейс</h5>
+        <div class="modal-header">
+          <h5 class="modal-title" id="addFlightModalLabel">Изменить данные рейса</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
         </div>
         <div class="modal-body">
@@ -64,7 +64,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-          <button type="submit" class="btn btn-primary" onclick="submitAddFlight()">Сохранить</button>
+          <button type="submit" class="btn btn-primary" onclick="submitEditFlight()">Сохранить</button>
         </div>
       </form>
     </div>

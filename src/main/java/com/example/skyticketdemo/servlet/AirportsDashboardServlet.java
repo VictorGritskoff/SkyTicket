@@ -20,6 +20,7 @@ import java.util.List;
 @WebServlet({"/dashboard/airport", "/dashboard/airport/delete"})
 public class AirportsDashboardServlet extends HttpServlet {
 
+    private final String PAGE = "/WEB-INF/views/admin/dashboard-airports.jsp";
     private final AirportService airportService;
 
     public AirportsDashboardServlet() {
@@ -29,15 +30,11 @@ public class AirportsDashboardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
             List<AirportDTO> airports = airportService.getAllAirports();
             request.setAttribute("airports", airports);
-        } catch (Exception e) {
-            log.error("Ошибка при загрузке списка аэропортов: ", e);
             request.setAttribute("errorMessage", "Ошибка при загрузке списка аэропортов.");
-        }
-        String jspPage = "/WEB-INF/views/admin/dashboard-airports.jsp";
-        request.getRequestDispatcher(jspPage).forward(request, response);
+
+        request.getRequestDispatcher(PAGE).forward(request, response);
     }
 
     @Override
@@ -71,30 +68,23 @@ public class AirportsDashboardServlet extends HttpServlet {
         }
     }
 
-        @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            String airportName = request.getParameter("airportName");
-            String city = request.getParameter("city");
-            String country = request.getParameter("country");
-            String idParam = request.getParameter("id");
-
-            AirportDTO airportDTO = new AirportDTO();
-            airportDTO.setAirportName(airportName);
-            airportDTO.setCity(city);
-            airportDTO.setCountry(country);
-
-            try {
-                if (idParam != null && !idParam.isEmpty()) {
-                    Long id = Long.parseLong(idParam);
-                    airportService.updateAirport(id, airportDTO);
-                } else {
-                    airportService.createAirport(airportDTO);
-                }
-                response.sendRedirect(request.getContextPath() + "/dashboard/airport");
-            } catch (Exception e) {
-                log.error("Ошибка при сохранении или обновлении аэропорта: ", e);
-                request.setAttribute("errorMessage", "Ошибка при сохранении или обновлении аэропорта. Пожалуйста, попробуйте снова.");
-                request.getRequestDispatcher("/WEB-INF/views/admin/dashboard-airports.jsp").forward(request, response);
-            }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        AirportDTO airportDTO = extractAirportFromRequest(req);
+        if (req.getParameter("id") != null && !req.getParameter("id").isEmpty()) {
+            Long id = Long.parseLong(req.getParameter("id"));
+            airportService.updateAirport(id, airportDTO);
+        } else {
+            airportService.createAirport(airportDTO);
         }
+        resp.sendRedirect(req.getContextPath() + "/dashboard/airport");
+    }
+
+    private AirportDTO extractAirportFromRequest(HttpServletRequest req) {
+        AirportDTO airportDTO = new AirportDTO();
+        airportDTO.setAirportName(req.getParameter("airportName"));
+        airportDTO.setCity(req.getParameter("city"));
+        airportDTO.setCountry(req.getParameter("country"));
+        return airportDTO;
+    }
 }

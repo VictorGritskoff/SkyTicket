@@ -84,3 +84,41 @@ function openAirportModal(action, airport = null) {
     const modal = new bootstrap.Modal(document.getElementById('addAirportModal'));
     modal.show();
 }
+
+function openFlightModal(action, data = null) {
+    const modalTitle = document.getElementById('addFlightModalLabel');
+    const flightNumberField = document.getElementById('flightNumber');
+    const departureTimeField = document.getElementById('departureTime');
+    const arrivalTimeField = document.getElementById('arrivalTime');
+    const departureAirportField = document.getElementById('departureAirport');
+    const arrivalAirportField = document.getElementById('arrivalAirport');
+    const airlineField = document.getElementById('airline');
+
+    if (action === 'add') {
+        modalTitle.textContent = 'Добавить рейс';
+        flightNumberField.value = '';
+        departureTimeField.value = '';
+        arrivalTimeField.value = '';
+
+    } else if (action === 'edit' && data) {
+        modalTitle.textContent = 'Редактировать рейс';
+        flightNumberField.value = data.flightNumber;
+        departureTimeField.value = data.departureTime;
+        arrivalTimeField.value = data.arrivalTime;
+
+        populateSelect(departureAirportField, data.departureAirport);
+        populateSelect(arrivalAirportField, data.arrivalAirport);
+        populateSelect(airlineField, data.airline);
+    }
+
+    const modal = new bootstrap.Modal(document.getElementById('addFlightModal'));
+    modal.show();
+}
+
+function populateSelect(selectElement, data) {
+    selectElement.innerHTML = '';
+    const option = document.createElement('option');
+    option.value = data.id;
+    option.textContent = data.name;
+    selectElement.appendChild(option);
+}

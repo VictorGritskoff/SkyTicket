@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,12 +24,6 @@
     <title>Управление рейсами</title>
 </head>
 <body id="body-pd">
-<header class="header" id="header">
-    <div class="header__toggle">
-        <i class="bi bi-list" id="header-toggle"></i>
-    </div>
-
-</header>
 
 <jsp:include page="/WEB-INF/views/common/dashboard.jsp"/>
 <jsp:include page="/WEB-INF/views/common/flight/addFlightModal.jsp"/>
@@ -50,18 +45,43 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>AB123</td>
-            <td>Шереметьево</td>
-            <td>Хитроу</td>
-            <td>2024-12-10 14:30</td>
-            <td>2024-12-10 16:45</td>
-            <td>
-                <button class="btn btn-primary btn-sm">Просмотр</button>
-                <button class="btn btn-warning btn-sm">Редактировать</button>
-                <button class="btn btn-danger btn-sm">Удалить</button>
-            </td>
-        </tr>
+        <c:forEach var="flight" items="${flights}">
+            <tr>
+                <td>${flight.flightNumber}</td>
+                <td>${flight.departureAirport.airportName}</td>
+                <td>${flight.arrivalAirport.airportName}</td>
+                <td>${flight.departureTime}</td>
+                <td>${flight.arrivalTime}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm"
+                            onclick="openFlightModal('edit', {
+                                    id: ${flight.flightID},
+                                    flightNumber: ${flight.flightNumber},
+                                    departureAirport: {
+                                    id: ${flight.departureAirport.airportID},
+                                    name: '${flight.departureAirport.airportName}',
+                                    city: '${flight.departureAirport.city}',
+                                    country: '${flight.departureAirport.country}'
+                                    },
+                                    arrivalAirport: {
+                                    id: ${flight.arrivalAirport.airportID},
+                                    name: '${flight.arrivalAirport.airportName}',
+                                    city: '${flight.arrivalAirport.city}',
+                                    country: '${flight.arrivalAirport.country}'
+                                    },
+                                    airline: {
+                                    id: ${flight.airline.airlineID},
+                                    name: '${flight.airline.airlineName}'
+                                    },
+                                    departureTime: '${flight.departureTime}',
+                                    arrivalTime: '${flight.arrivalTime}'
+                                    })">
+                        Редактировать
+                    </button>
+                    <button class="btn btn-danger btn-sm" onclick="showDeleteFlightModal(${flight.flightID})">Удалить</button>
+                </td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
 </main>
