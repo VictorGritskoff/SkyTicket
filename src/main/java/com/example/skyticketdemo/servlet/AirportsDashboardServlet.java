@@ -39,33 +39,8 @@ public class AirportsDashboardServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String idParam = request.getParameter("id");
-
-        if (idParam == null || idParam.isEmpty()) {
-            log.error("Параметр id не передан для удаления аэропорта.");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("ID is missing.");
-            return;
-        }
-        try {
-            Long id = Long.parseLong(idParam);
-            airportService.deleteAirport(id);
-            log.info("Аэропорт с id {} успешно удалён.", id);
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write("Airport deleted successfully.");
-        } catch (NumberFormatException e) {
-            log.error("Неверный формат id: {}", idParam, e);
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("Invalid ID format.");
-        } catch (EntityNotFoundException e) {
-            log.error("Не удалось найти аэропорт для удаления: {}", e.getMessage());
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.getWriter().write("Airport not found.");
-        } catch (Exception e) {
-            log.error("Ошибка при удалении аэропорта: ", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("Error deleting airport.");
-        }
+        Long id = Long.parseLong( request.getParameter("id"));
+        airportService.deleteAirport(id);
     }
 
     @Override

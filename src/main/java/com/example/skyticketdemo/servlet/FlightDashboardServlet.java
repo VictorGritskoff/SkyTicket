@@ -24,7 +24,7 @@ import org.mapstruct.factory.Mappers;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/dashboard/flights")
+@WebServlet({"/dashboard/flights", "/dashboard/flights/delete"})
 public class FlightDashboardServlet extends HttpServlet {
 
     private final String PAGE = "/WEB-INF/views/admin/dashboard-flights.jsp";
@@ -52,10 +52,17 @@ public class FlightDashboardServlet extends HttpServlet {
         request.getRequestDispatcher(PAGE).forward(request, response);
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         FlightDTO flightDTO = extractFlightFromRequest(request);
         flightService.createFlight(flightDTO);
         response.sendRedirect(request.getContextPath() + "/dashboard/flights");
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong( request.getParameter("id"));
+        flightService.deleteFlight(id);
     }
 
     private FlightDTO extractFlightFromRequest(HttpServletRequest request) {

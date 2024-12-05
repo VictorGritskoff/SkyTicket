@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Slf4j
-@WebServlet({"/dashboard/airlines"})
+@WebServlet({"/dashboard/airlines", "/dashboard/airlines/delete"})
 public class AirlinesDashboardServlet extends HttpServlet {
 
     private final String PAGE = "/WEB-INF/views/admin/dashboard-airlines.jsp";
@@ -70,33 +70,7 @@ public class AirlinesDashboardServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String idParam = request.getParameter("id");
-
-        if (idParam == null || idParam.isEmpty()) {
-            log.error("Параметр id не передан для удаления авиалинии.");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("ID is missing.");
-            return;
-        }
-        try {
-            Long id = Long.parseLong(idParam);
-            airlineService.deleteAirline(id);
-            log.info("Авиалиния с id {} успешно удалена.", id);
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write("Airline deleted successfully.");
-        } catch (NumberFormatException e) {
-            log.error("Неверный формат id: {}", idParam, e);
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("Invalid ID format.");
-        } catch (EntityNotFoundException e) {
-            log.error("Не удалось найти авиалинию для удаления: {}", e.getMessage());
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.getWriter().write("Airline not found.");
-        } catch (Exception e) {
-            log.error("Ошибка при удалении авиалинии: ", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("Error deleting airline.");
-        }
+        Long id = Long.parseLong(request.getParameter("id"));
+        airlineService.deleteAirline(id);
     }
-
 }

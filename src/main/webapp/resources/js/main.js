@@ -1,6 +1,6 @@
 function showDeleteAirlineModal(airlineID) {
     if (confirm('Вы уверены, что хотите удалить эту авиалинию?')) {
-        fetch('${pageContext.request.contextPath}/dashboard/airlines?id=' + airlineID, {
+        fetch('/dashboard/airlines/delete?id=' + airlineID, {
             method: 'DELETE',
         })
             .then(response => {
@@ -83,6 +83,26 @@ function openAirportModal(action, airport = null) {
 
     const modal = new bootstrap.Modal(document.getElementById('addAirportModal'));
     modal.show();
+}
+
+function showDeleteFlightModal(flightID) {
+    if (confirm('Вы уверены, что хотите удалить этот рейс?')) {
+        fetch('/dashboard/flights/delete?id=' + flightID, {
+            method: 'DELETE',
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Рейс успешно удален');
+                    location.reload();
+                } else {
+                    response.text().then(text => alert('Ошибка: ' + text));
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка при удалении:', error);
+                alert('Ошибка при удалении');
+            });
+    }
 }
 
 function openFlightModal(action, data = null) {

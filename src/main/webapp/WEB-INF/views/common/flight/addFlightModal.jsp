@@ -11,7 +11,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <form id="addFlightForm" method="post" action="${pageContext.request.contextPath}/dashboard/flights">
-      <div class="modal-header">
+        <div class="modal-header">
           <h5 class="modal-title" id="addFlightModalLabel">Добавить рейс</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
         </div>
@@ -70,3 +70,4 @@
     </div>
   </div>
 </div>
+
