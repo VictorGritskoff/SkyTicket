@@ -13,13 +13,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <title>Управление авиалиниями</title>
 </head>
 <body id="body-pd">
 
 <jsp:include page="/WEB-INF/views/common/dashboard.jsp"/>
-<jsp:include page="/WEB-INF/views/common/addAirlineModal.jsp"/>
+<jsp:include page="/WEB-INF/views/common/airline/addAirlineModal.jsp"/>
 
 <main class="container mt-5 main-content">
     <h1>Список авиалиний</h1>
