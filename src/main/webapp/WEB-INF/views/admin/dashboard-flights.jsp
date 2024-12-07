@@ -27,6 +27,7 @@
 
 <jsp:include page="/WEB-INF/views/common/dashboard.jsp"/>
 <jsp:include page="/WEB-INF/views/common/flight/addFlightModal.jsp"/>
+<jsp:include page="/WEB-INF/views/common/flight/addSeatsModal.jsp"/>
 <h1>Добро пожаловать!</h1>
 <main class="container mt-5 main-content">
     <h1>Список рейсов</h1>
@@ -78,7 +79,15 @@
                                     })">
                         Редактировать
                     </button>
-                    <button class="btn btn-danger btn-sm" onclick="showDeleteFlightModal(${flight.flightID})">Удалить</button>
+                    <button class="btn btn-danger btn-sm"
+                            onclick="showDeleteFlightModal(${flight.flightID})">
+                        Удалить
+                    </button>
+                    <button class="btn btn-success btn-sm"
+                            onclick="openAddSeatsModal(${flight.flightID})">
+                        Места
+                    </button>
+
                 </td>
             </tr>
         </c:forEach>

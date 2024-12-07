@@ -142,3 +142,21 @@ function populateSelect(selectElement, data) {
     option.textContent = data.name;
     selectElement.appendChild(option);
 }
+
+function openAddSeatsModal(flightID) {
+    const seatFlightIDInput = document.getElementById('seatFlightID');
+    if (seatFlightIDInput) {
+        seatFlightIDInput.value = flightID;
+    } else {
+        console.error('Элемент с ID seatFlightID не найден.');
+        return;
+    }
+
+    const modalElement = document.getElementById('addSeatsModal');
+    if (modalElement) {
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+    } else {
+        console.error('Модальное окно с ID addSeatsModal не найдено.');
+    }
+}

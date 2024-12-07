@@ -21,9 +21,6 @@ public class Seat {
     @Column(nullable = false, length = 10)
     private String seatNumber;
 
-    @Column(nullable = false, length = 20)
-    private String seatClass;
-
     @Column(nullable = false)
     private Boolean isBooked = false;
 

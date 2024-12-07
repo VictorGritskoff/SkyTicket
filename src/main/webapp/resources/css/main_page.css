@@ -131,7 +131,7 @@ nav {
 .booking__container form {
   margin-top: 4rem;
   display: grid;
-  grid-template-columns: repeat(4, 1fr) auto;
+  grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
 }
 
@@ -144,6 +144,21 @@ nav {
   align-items: center;
   gap: 1rem;
 }
+
+.booking__container .form__group--button {
+  grid-column: span 5;
+  display: flex;
+  justify-content: center;
+}
+
+.booking__container .btn {
+  width: 200px;
+  text-align: center;
+  padding: 10px 20px;
+}
+
+
+
 
 .booking__container .form__group span {
   padding: 10px;
@@ -180,7 +195,8 @@ nav {
   color: var(--text-dark);
 }
 
-.booking__container input:focus ~ label {
+.booking__container input:focus ~ label,
+.booking__container input:not(:placeholder-shown) ~ label {
   font-size: 0.8rem;
   top: 0;
 }

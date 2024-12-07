@@ -2,7 +2,6 @@ package com.example.skyticketdemo.mapper;
 
 import com.example.skyticketdemo.dto.AirlineDTO;
 import com.example.skyticketdemo.entity.Airline;
-import com.example.skyticketdemo.entity.Airport;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
