@@ -38,15 +38,6 @@ public class AirportRepositoryImpl implements AirportRepository {
     }
 
     @Override
-    public List<Airport> findAllByName(List<String> names) {
-        try (Session session = HibernateUtil.getSession()) {
-            return session.createQuery("FROM Airport a WHERE a.airportName IN :names", Airport.class)
-                    .setParameter("names", names)
-                    .list();
-        }
-    }
-
-    @Override
     public void update(Airport airport) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSession()) {

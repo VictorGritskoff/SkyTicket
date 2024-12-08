@@ -5,13 +5,14 @@ import com.example.skyticketdemo.entity.Airline;
 import com.example.skyticketdemo.entity.Airport;
 import com.example.skyticketdemo.entity.Flight;
 import com.example.skyticketdemo.mapper.FlightMapper;
-import com.example.skyticketdemo.repository.interfac.AirlineRepository;
-import com.example.skyticketdemo.repository.interfac.AirportRepository;
-import com.example.skyticketdemo.repository.interfac.FlightRepository;
+import com.example.skyticketdemo.repository.impl.AirlineRepositoryImpl;
+import com.example.skyticketdemo.repository.impl.AirportRepositoryImpl;
+import com.example.skyticketdemo.repository.impl.FlightRepositoryImpl;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.module.FindException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -20,19 +21,23 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class FlightService {
-    private final FlightRepository flightRepository;
-    private final FlightMapper flightMapper;
-    private final AirportRepository airportRepository;
-    private final AirlineRepository airlineRepository;
+    private final FlightRepositoryImpl flightRepository;
+    private FlightMapper flightMapper;
+    private AirportRepositoryImpl airportRepository;
+    private AirlineRepositoryImpl airlineRepository;
 
-    public FlightService(FlightRepository flightRepository,
-                         AirportRepository airportRepository,
-                         AirlineRepository airlineRepository,
+    public FlightService(FlightRepositoryImpl flightRepository,
+                         AirportRepositoryImpl airportRepository,
+                         AirlineRepositoryImpl airlineRepository,
                          FlightMapper flightMapper) {
         this.flightRepository = flightRepository;
         this.airportRepository = airportRepository;
         this.airlineRepository = airlineRepository;
         this.flightMapper = flightMapper;
+    }
+
+    public FlightService(FlightRepositoryImpl flightRepository) {
+        this.flightRepository = flightRepository;
     }
 
     public FlightDTO getFlightById(Long id) {
@@ -138,4 +143,15 @@ public class FlightService {
             throw new IllegalArgumentException("Неверный формат даты/времени: " + dateTime);
         }
     }
+
+    public List<Flight> findFlights(String departureCountry, String arrivalCountry, LocalDate departureDate, Integer tickets) {
+        if ((departureCountry == null || departureCountry.isEmpty()) &&
+                (arrivalCountry == null || arrivalCountry.isEmpty()) &&
+                departureDate == null &&
+                tickets == null) {
+            throw new IllegalArgumentException("Необходимо указать хотя бы один параметр для поиска.");
+        }
+        return flightRepository.searchFlights(departureCountry, arrivalCountry, departureDate, tickets);
+    }
+
 }

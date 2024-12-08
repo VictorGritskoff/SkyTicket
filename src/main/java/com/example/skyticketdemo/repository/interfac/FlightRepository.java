@@ -1,6 +1,5 @@
 package com.example.skyticketdemo.repository.interfac;
 
-import com.example.skyticketdemo.entity.Airline;
 import com.example.skyticketdemo.entity.Flight;
 
 import java.util.List;

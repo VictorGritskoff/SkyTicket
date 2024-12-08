@@ -4,7 +4,6 @@ import com.example.skyticketdemo.entity.Airline;
 import com.example.skyticketdemo.repository.interfac.AirlineRepository;
 import com.example.skyticketdemo.utils.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;

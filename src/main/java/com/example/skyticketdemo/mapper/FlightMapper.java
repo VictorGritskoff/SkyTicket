@@ -5,6 +5,7 @@ import com.example.skyticketdemo.entity.Flight;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+
 @Mapper
 public interface FlightMapper {
     @Mapping(source = "departureAirport", target = "departureAirport")
@@ -21,4 +22,5 @@ public interface FlightMapper {
     @Mapping(source = "departureTime", target = "departureTime", dateFormat = "yyyy-MM-dd HH:mm")
     @Mapping(source = "arrivalTime", target = "arrivalTime", dateFormat = "yyyy-MM-dd HH:mm")
     Flight toEntity(FlightDTO flightDTO);
+
 }

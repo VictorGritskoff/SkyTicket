@@ -3,8 +3,6 @@ package com.example.skyticketdemo.servlet;
 import com.example.skyticketdemo.dto.AirlineDTO;
 import com.example.skyticketdemo.dto.AirportDTO;
 import com.example.skyticketdemo.dto.FlightDTO;
-import com.example.skyticketdemo.dto.SeatDTO;
-import com.example.skyticketdemo.mapper.AirportMapper;
 import com.example.skyticketdemo.mapper.FlightMapper;
 import com.example.skyticketdemo.mapper.SeatMapper;
 import com.example.skyticketdemo.repository.impl.AirlineRepositoryImpl;
@@ -15,8 +13,6 @@ import com.example.skyticketdemo.repository.interfac.AirlineRepository;
 import com.example.skyticketdemo.repository.interfac.AirportRepository;
 import com.example.skyticketdemo.repository.interfac.FlightRepository;
 import com.example.skyticketdemo.repository.interfac.SeatRepository;
-import com.example.skyticketdemo.service.AirlineService;
-import com.example.skyticketdemo.service.AirportService;
 import com.example.skyticketdemo.service.FlightService;
 import com.example.skyticketdemo.service.SeatService;
 import jakarta.servlet.ServletException;
@@ -27,7 +23,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.mapstruct.factory.Mappers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet({"/dashboard/flights", "/dashboard/flights/delete", "/dashboard/seats/add"})
@@ -36,12 +31,12 @@ public class FlightDashboardServlet extends HttpServlet {
     private final String PAGE = "/WEB-INF/views/admin/dashboard-flights.jsp";
 
     private final FlightService flightService;
-    private final AirportRepository airportRepository;
-    private final AirlineRepository airlineRepository;
+    private final AirportRepositoryImpl airportRepository;
+    private final AirlineRepositoryImpl airlineRepository;
     private final SeatService seatService;
 
     public FlightDashboardServlet() {
-        FlightRepository flightRepository = new FlightRepositoryImpl();
+        FlightRepositoryImpl flightRepository = new FlightRepositoryImpl();
         this.airlineRepository = new AirlineRepositoryImpl();
         this.airportRepository = new AirportRepositoryImpl();
         FlightMapper flightMapper = Mappers.getMapper(FlightMapper.class);
