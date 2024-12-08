@@ -21,7 +21,6 @@ import java.util.List;
 @WebServlet({"/dashboard/airlines", "/dashboard/airlines/delete"})
 public class AirlinesDashboardServlet extends HttpServlet {
 
-    private final String PAGE = "/WEB-INF/views/admin/dashboard-airlines.jsp";
     private final AirlineService airlineService;
 
     public AirlinesDashboardServlet() {
@@ -33,7 +32,7 @@ public class AirlinesDashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<AirlineDTO> airlines = airlineService.getAllAirlines();
         request.setAttribute("airlines", airlines);
-        request.getRequestDispatcher(PAGE).forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/admin/dashboard-airlines.jsp").forward(request, response);
     }
 
     @Override

@@ -1,14 +1,14 @@
 package com.example.skyticketdemo.repository.impl;
 
 import com.example.skyticketdemo.entity.Airline;
-import com.example.skyticketdemo.repository.interfac.AirlineRepository;
+import com.example.skyticketdemo.repository.interfac.BaseRepository;
 import com.example.skyticketdemo.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class AirlineRepositoryImpl implements AirlineRepository {
+public class AirlineRepositoryImpl implements BaseRepository<Airline, Long> {
 
     @Override
     public void save(Airline airline) {

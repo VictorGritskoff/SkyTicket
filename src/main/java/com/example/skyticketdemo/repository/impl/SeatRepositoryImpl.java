@@ -71,6 +71,11 @@ public class SeatRepositoryImpl implements SeatRepository {
 
 
     @Override
+    public void save(Seat entity) {
+        log.warn("Вызов метода save в неподдерживаемом репозитории. Объект: {}", entity);
+    }
+
+    @Override
     public Seat findById(Long id) {
         try (Session session = HibernateUtil.getSession()) {
             return session.get(Seat.class, id);
@@ -99,5 +104,10 @@ public class SeatRepositoryImpl implements SeatRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void delete(Seat entity) {
+        log.warn("Вызов метода delete в неподдерживаемом репозитории. Объект: {}", entity);
     }
 }

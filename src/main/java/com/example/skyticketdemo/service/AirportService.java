@@ -3,7 +3,7 @@ package com.example.skyticketdemo.service;
 import com.example.skyticketdemo.dto.AirportDTO;
 import com.example.skyticketdemo.entity.Airport;
 import com.example.skyticketdemo.mapper.AirportMapper;
-import com.example.skyticketdemo.repository.interfac.AirportRepository;
+import com.example.skyticketdemo.repository.impl.AirportBaseRepositoryImpl;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,20 +12,12 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class AirportService {
-    private final AirportRepository airportRepository;
+    private final AirportBaseRepositoryImpl airportRepository;
     private final AirportMapper airportMapper;
 
-    public AirportService(AirportRepository airportRepository, AirportMapper airportMapper) {
+    public AirportService(AirportBaseRepositoryImpl airportRepository, AirportMapper airportMapper) {
         this.airportRepository = airportRepository;
         this.airportMapper = airportMapper;
-    }
-
-    public AirportDTO getAirportById(Long id) {
-        Airport airport = airportRepository.findById(id);
-        if (airport == null) {
-            throw new EntityNotFoundException("Аэропорт с id " + id + " не найден.");
-        }
-        return airportMapper.toDto(airport);
     }
 
     public List<AirportDTO> getAllAirports() {

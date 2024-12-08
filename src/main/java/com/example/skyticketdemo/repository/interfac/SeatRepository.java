@@ -4,11 +4,8 @@ import com.example.skyticketdemo.entity.Seat;
 
 import java.util.List;
 
-public interface SeatRepository {
+public interface SeatRepository extends BaseRepository<Seat, Long> {
     void saveAll(List<Seat> seats);
-    Seat findById(Long id);
-    List<Seat> findAll();
-    void update(Seat seat);
     void deleteAll(List<Seat> seats);
     List<String> findSeatNumbersByFlightID(Long flightID);
 }

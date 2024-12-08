@@ -2,7 +2,7 @@ package com.example.skyticketdemo.repository.impl;
 
 import com.example.skyticketdemo.entity.Flight;
 import com.example.skyticketdemo.entity.Seat;
-import com.example.skyticketdemo.repository.interfac.FlightRepository;
+import com.example.skyticketdemo.repository.interfac.BaseRepository;
 import com.example.skyticketdemo.utils.HibernateUtil;
 import jakarta.persistence.criteria.*;
 import org.hibernate.Session;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlightRepositoryImpl implements FlightRepository {
+public class FlightRepositoryImpl implements BaseRepository<Flight, Long> {
 
     @Override
     public void save(Flight flight) {

@@ -1,10 +1,9 @@
 package com.example.skyticketdemo.servlet;
 
 import com.example.skyticketdemo.dto.AirportDTO;
-import com.example.skyticketdemo.repository.impl.AirportRepositoryImpl;
+import com.example.skyticketdemo.repository.impl.AirportBaseRepositoryImpl;
 import com.example.skyticketdemo.mapper.AirportMapper;
 import com.example.skyticketdemo.service.AirportService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,12 +19,11 @@ import java.util.List;
 @WebServlet({"/dashboard/airport", "/dashboard/airport/delete"})
 public class AirportsDashboardServlet extends HttpServlet {
 
-    private final String PAGE = "/WEB-INF/views/admin/dashboard-airports.jsp";
     private final AirportService airportService;
 
     public AirportsDashboardServlet() {
         AirportMapper airportMapper = Mappers.getMapper(AirportMapper.class);
-        this.airportService = new AirportService(new AirportRepositoryImpl(), airportMapper);
+        this.airportService = new AirportService(new AirportBaseRepositoryImpl(), airportMapper);
     }
 
     @Override
@@ -34,7 +32,7 @@ public class AirportsDashboardServlet extends HttpServlet {
             request.setAttribute("airports", airports);
             request.setAttribute("errorMessage", "Ошибка при загрузке списка аэропортов.");
 
-        request.getRequestDispatcher(PAGE).forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/admin/dashboard-airports.jsp").forward(request, response);
     }
 
     @Override

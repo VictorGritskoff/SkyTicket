@@ -6,12 +6,9 @@ import com.example.skyticketdemo.dto.FlightDTO;
 import com.example.skyticketdemo.mapper.FlightMapper;
 import com.example.skyticketdemo.mapper.SeatMapper;
 import com.example.skyticketdemo.repository.impl.AirlineRepositoryImpl;
-import com.example.skyticketdemo.repository.impl.AirportRepositoryImpl;
+import com.example.skyticketdemo.repository.impl.AirportBaseRepositoryImpl;
 import com.example.skyticketdemo.repository.impl.FlightRepositoryImpl;
 import com.example.skyticketdemo.repository.impl.SeatRepositoryImpl;
-import com.example.skyticketdemo.repository.interfac.AirlineRepository;
-import com.example.skyticketdemo.repository.interfac.AirportRepository;
-import com.example.skyticketdemo.repository.interfac.FlightRepository;
 import com.example.skyticketdemo.repository.interfac.SeatRepository;
 import com.example.skyticketdemo.service.FlightService;
 import com.example.skyticketdemo.service.SeatService;
@@ -28,17 +25,15 @@ import java.util.List;
 @WebServlet({"/dashboard/flights", "/dashboard/flights/delete", "/dashboard/seats/add"})
 public class FlightDashboardServlet extends HttpServlet {
 
-    private final String PAGE = "/WEB-INF/views/admin/dashboard-flights.jsp";
-
     private final FlightService flightService;
-    private final AirportRepositoryImpl airportRepository;
+    private final AirportBaseRepositoryImpl airportRepository;
     private final AirlineRepositoryImpl airlineRepository;
     private final SeatService seatService;
 
     public FlightDashboardServlet() {
         FlightRepositoryImpl flightRepository = new FlightRepositoryImpl();
         this.airlineRepository = new AirlineRepositoryImpl();
-        this.airportRepository = new AirportRepositoryImpl();
+        this.airportRepository = new AirportBaseRepositoryImpl();
         FlightMapper flightMapper = Mappers.getMapper(FlightMapper.class);
         this.flightService = new FlightService(flightRepository, airportRepository,
                 airlineRepository, flightMapper);
@@ -55,7 +50,7 @@ public class FlightDashboardServlet extends HttpServlet {
         request.setAttribute("airports", airportRepository.findAll());
         request.setAttribute("airlines", airlineRepository.findAll());
 
-        request.getRequestDispatcher(PAGE).forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/admin/dashboard-flights.jsp").forward(request, response);
     }
 
     @Override

@@ -4,7 +4,7 @@ package com.example.skyticketdemo.service;
 import com.example.skyticketdemo.dto.AirlineDTO;
 import com.example.skyticketdemo.entity.Airline;
 import com.example.skyticketdemo.mapper.AirlineMapper;
-import com.example.skyticketdemo.repository.interfac.AirlineRepository;
+import com.example.skyticketdemo.repository.impl.AirlineRepositoryImpl;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,10 +13,10 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class AirlineService {
-    private final AirlineRepository airlineRepository;
+    private final AirlineRepositoryImpl airlineRepository;
     private final AirlineMapper airlineMapper;
 
-    public AirlineService(AirlineRepository airlineRepository, AirlineMapper airlineMapper) {
+    public AirlineService(AirlineRepositoryImpl airlineRepository, AirlineMapper airlineMapper) {
         this.airlineRepository = airlineRepository;
         this.airlineMapper = airlineMapper;
     }

@@ -6,7 +6,7 @@ import com.example.skyticketdemo.entity.Airport;
 import com.example.skyticketdemo.entity.Flight;
 import com.example.skyticketdemo.mapper.FlightMapper;
 import com.example.skyticketdemo.repository.impl.AirlineRepositoryImpl;
-import com.example.skyticketdemo.repository.impl.AirportRepositoryImpl;
+import com.example.skyticketdemo.repository.impl.AirportBaseRepositoryImpl;
 import com.example.skyticketdemo.repository.impl.FlightRepositoryImpl;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +23,14 @@ import java.util.stream.Collectors;
 public class FlightService {
     private final FlightRepositoryImpl flightRepository;
     private FlightMapper flightMapper;
-    private AirportRepositoryImpl airportRepository;
+    private AirportBaseRepositoryImpl airportRepository;
     private AirlineRepositoryImpl airlineRepository;
 
     public FlightService(FlightRepositoryImpl flightRepository,
-                         AirportRepositoryImpl airportRepository,
+                         AirportBaseRepositoryImpl airportRepository,
                          AirlineRepositoryImpl airlineRepository,
                          FlightMapper flightMapper) {
+
         this.flightRepository = flightRepository;
         this.airportRepository = airportRepository;
         this.airlineRepository = airlineRepository;
