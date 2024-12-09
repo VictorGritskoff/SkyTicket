@@ -160,3 +160,10 @@ function openAddSeatsModal(flightID) {
         console.error('Модальное окно с ID addSeatsModal не найдено.');
     }
 }
+
+function showBookingModal(flightId) {
+    document.getElementById('flightIdInput').value = flightId;
+    const bookingModal = new bootstrap.Modal(document.getElementById('bookingModal'));
+    bookingModal.show();
+}
+

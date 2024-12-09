@@ -20,9 +20,6 @@
 <div class="container text-center mt-5">
   <h1 class="display-4 text-danger">Результаты не найдены</h1>
   <p class="lead">К сожалению, по вашему запросу ничего не найдено.</p>
-  <a href="${pageContext.request.contextPath}/main" class="btn btn-primary">
-    Вернуться на главную
-  </a>
 </div>
 <jsp:include page="/WEB-INF/views/common/main_page_footer.jsp"/>
 </body>

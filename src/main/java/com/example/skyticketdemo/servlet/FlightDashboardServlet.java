@@ -38,7 +38,7 @@ public class FlightDashboardServlet extends HttpServlet {
         this.flightService = new FlightService(flightRepository, airportRepository,
                 airlineRepository, flightMapper);
 
-        SeatRepository seatRepository = new SeatRepositoryImpl();
+        SeatRepositoryImpl seatRepository = new SeatRepositoryImpl();
         SeatMapper seatMapper = Mappers.getMapper(SeatMapper.class);
         this.seatService = new SeatService(seatRepository, seatMapper);
     }

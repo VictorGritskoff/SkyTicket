@@ -3,6 +3,9 @@ package com.example.skyticketdemo.repository.impl;
 import com.example.skyticketdemo.entity.Seat;
 import com.example.skyticketdemo.repository.interfac.SeatRepository;
 import com.example.skyticketdemo.utils.HibernateUtil;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -109,5 +112,43 @@ public class SeatRepositoryImpl implements SeatRepository {
     @Override
     public void delete(Seat entity) {
         log.warn("Вызов метода delete в неподдерживаемом репозитории. Объект: {}", entity);
+    }
+
+    public boolean bookSeats(Long flightId, int seatCount) {
+        try (Session session = HibernateUtil.getSession()) {
+            Transaction tx = session.beginTransaction();
+            try {
+                CriteriaBuilder cb = session.getCriteriaBuilder();
+                CriteriaQuery<Seat> query = cb.createQuery(Seat.class);
+                Root<Seat> seatRoot = query.from(Seat.class);
+
+                query.select(seatRoot)
+                        .where(
+                                cb.equal(seatRoot.get("flight").get("flightID"), flightId),
+                                cb.equal(seatRoot.get("isBooked"), false)
+                        );
+
+                List<Seat> availableSeats = session.createQuery(query).getResultList();
+
+                if (availableSeats.size() < seatCount) {
+                    tx.rollback();
+                    return false;
+                }
+
+                for (int i = 0; i < seatCount; i++) {
+                    Seat seat = availableSeats.get(i);
+                    seat.setIsBooked(true);
+                    session.update(seat);
+                }
+
+                tx.commit();
+                return true;
+            } catch (Exception e) {
+                tx.rollback();
+                e.printStackTrace();
+                return false;
+            }
+
+        }
     }
 }

@@ -16,6 +16,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/main_page_header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/flight_booking_modal.jsp"/>
 <div class="flights__container">
     <h2>Доступные рейсы</h2>
     <c:if test="${empty flights}">
@@ -40,7 +41,7 @@
                 <td>${flight.arrivalAirport.city} (${flight.arrivalAirport.country})</td>
                 <td>${flight.departureTime}</td>
                 <td>${flight.arrivalTime}</td>
-                <td><button class="btn btn-submit btn-sm" onclick="showBookingModal(${airline.airlineID})">Забронировать</button></td>
+                <td><button class="btn btn-submit btn-sm" onclick="showBookingModal(${flight.flightID})">Забронировать</button></td>
             </tr>
         </c:forEach>
         </tbody>
@@ -49,5 +50,6 @@
 
 <jsp:include page="/WEB-INF/views/common/main_page_footer.jsp"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
 </html>

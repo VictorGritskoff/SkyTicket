@@ -4,7 +4,7 @@ package com.example.skyticketdemo.service;
 import com.example.skyticketdemo.dto.SeatDTO;
 import com.example.skyticketdemo.entity.Seat;
 import com.example.skyticketdemo.mapper.SeatMapper;
-import com.example.skyticketdemo.repository.interfac.SeatRepository;
+import com.example.skyticketdemo.repository.impl.SeatRepositoryImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,12 +14,16 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class SeatService {
-    private final SeatRepository seatRepository;
-    private final SeatMapper seatMapper;
+    private final SeatRepositoryImpl seatRepository;
+    private SeatMapper seatMapper;
 
-    public SeatService(SeatRepository seatRepository, SeatMapper seatMapper) {
+    public SeatService(SeatRepositoryImpl seatRepository, SeatMapper seatMapper) {
         this.seatRepository = seatRepository;
         this.seatMapper = seatMapper;
+    }
+
+    public SeatService(SeatRepositoryImpl seatRepository) {
+        this.seatRepository = seatRepository;
     }
 
     public void createSeats(List<SeatDTO> seatDTOs) {
@@ -86,5 +90,9 @@ public class SeatService {
             log.error("Ошибка при добавлении мест: ", e);
             throw new RuntimeException("Ошибка при добавлении мест.");
         }
+    }
+
+    public boolean bookSeats(Long flightId, int seatCount) {
+        return seatRepository.bookSeats(flightId, seatCount);
     }
 }

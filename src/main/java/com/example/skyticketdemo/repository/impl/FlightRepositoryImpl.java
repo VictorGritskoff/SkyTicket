@@ -105,4 +105,5 @@ public class FlightRepositoryImpl implements BaseRepository<Flight, Long> {
             return session.createQuery(query).getResultList();
         }
     }
+
 }
