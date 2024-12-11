@@ -29,6 +29,9 @@ public class Ticket {
     private Seat seat;
 
     @Column(nullable = false)
+    private Double amount;
+
+    @Column(nullable = false)
     private LocalDateTime bookingDate;
 
 }

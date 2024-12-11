@@ -29,6 +29,6 @@ public class UserAccessFilter implements Filter {
     private void handleUnauthorizedAccess(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("message", "Error! You must be a user to access this page.");
-        request.getRequestDispatcher("/login").forward(request, response);
+        request.getRequestDispatcher("/public/login").forward(request, response);
     }
 }
