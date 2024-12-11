@@ -14,6 +14,7 @@ import java.util.List;
 
 @Slf4j
 public class SeatRepositoryImpl implements SeatRepository {
+
     @Override
     public void saveAll(List<Seat> seats) {
         Transaction transaction = null;
@@ -72,6 +73,16 @@ public class SeatRepositoryImpl implements SeatRepository {
         }
     }
 
+    public Double findMinPriceByFlightId(Long flightID) {
+        try (Session session = HibernateUtil.getSession()) {
+            return session.createQuery(
+                            "SELECT MIN(s.price) FROM Seat s WHERE s.flight.flightID = :flightID", Double.class)
+                    .setParameter("flightID", flightID)
+                    .uniqueResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     @Override
     public void save(Seat entity) {
@@ -114,6 +125,17 @@ public class SeatRepositoryImpl implements SeatRepository {
         log.warn("Вызов метода delete в неподдерживаемом репозитории. Объект: {}", entity);
     }
 
+    public List<Seat> findSeatsByFlightId(Long flightID) {
+        try (Session session = HibernateUtil.getSession()) {
+            return session.createQuery("FROM Seat s WHERE s.flight.flightID = :flightID", Seat.class)
+                    .setParameter("flightID", flightID)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
+    }
+
     public boolean bookSeats(Long flightId, int seatCount) {
         try (Session session = HibernateUtil.getSession()) {
             Transaction tx = session.beginTransaction();
@@ -148,7 +170,6 @@ public class SeatRepositoryImpl implements SeatRepository {
                 e.printStackTrace();
                 return false;
             }
-
         }
     }
 }

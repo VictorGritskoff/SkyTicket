@@ -37,4 +37,7 @@ public class Flight {
     @JoinColumn(name = "Airline", referencedColumnName = "AirlineID")
     private Airline airline;
 
+    @Transient
+    private Double minPrice;
+
 }

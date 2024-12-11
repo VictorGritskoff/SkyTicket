@@ -2,7 +2,9 @@ package com.example.skyticketdemo.servlet;
 
 import com.example.skyticketdemo.entity.Flight;
 import com.example.skyticketdemo.repository.impl.FlightRepositoryImpl;
+import com.example.skyticketdemo.repository.impl.SeatRepositoryImpl;
 import com.example.skyticketdemo.service.FlightService;
+import com.example.skyticketdemo.service.SeatService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,54 +13,78 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @WebServlet("/searchFlights")
 public class FlightSearchServlet extends HttpServlet {
 
     private FlightService flightService;
+    private SeatService seatService;
+
 
     @Override
     public void init() throws ServletException {
         this.flightService = new FlightService(new FlightRepositoryImpl());
+        this.seatService = new SeatService(new SeatRepositoryImpl());
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String departureCountry = request.getParameter("departureCountry");
-        String arrivalCountry = request.getParameter("arrivalCountry");
-        String ticketsParam = request.getParameter("tickets");
-        String departureDateParam = request.getParameter("departureDate");
-
-        Integer tickets = null;
-        LocalDate departureDate = null;
-
         try {
-            if (ticketsParam != null && !ticketsParam.isEmpty()) {
-                tickets = Integer.parseInt(ticketsParam);
-            }
-            if (departureDateParam != null && !departureDateParam.isEmpty()) {
-                departureDate = LocalDate.parse(departureDateParam);
-            }
-        } catch (Exception e) {
-            request.setAttribute("error", "Неверный формат данных!");
-            request.getRequestDispatcher("/WEB-INF/views/user/main.jsp").forward(request, response);
-            return;
-        }
-        try {
+            String departureCountry = request.getParameter("departureCountry");
+            String arrivalCountry = request.getParameter("arrivalCountry");
+            Integer tickets = parseIntegerParameter(request.getParameter("tickets"));
+            LocalDate departureDate = parseDateParameter(request.getParameter("departureDate"));
+
             List<Flight> flights = flightService.findFlights(departureCountry, arrivalCountry, departureDate, tickets);
-
             if (flights.isEmpty()) {
-                request.getRequestDispatcher("/WEB-INF/views/user/no_results_found.jsp").forward(request, response);
-            } else {
-                request.setAttribute("flights", flights);
-                request.getRequestDispatcher("/WEB-INF/views/user/flight_results.jsp").forward(request, response);
+                forwardToPage(request, response, "/WEB-INF/views/user/no_results_found.jsp");
+                return;
             }
+            for (Flight flight : flights) {
+                Double minPrice = seatService.getSeatPriceForFlightId(flight.getFlightID());
+                flight.setMinPrice(minPrice);
+            }
+            request.setAttribute("flights", flights);
+            forwardToPage(request, response, "/WEB-INF/views/user/flight_results.jsp");
+
         } catch (IllegalArgumentException e) {
             request.setAttribute("error", e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/views/user/main.jsp").forward(request, response);
+            forwardToPage(request, response, "/WEB-INF/views/user/main.jsp");
         }
+    }
+
+    private Integer parseIntegerParameter(String param) {
+        try {
+            return param != null && !param.isEmpty() ? Integer.parseInt(param) : null;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Неверный формат количества билетов!");
+        }
+    }
+
+    private LocalDate parseDateParameter(String param) {
+        try {
+            return param != null && !param.isEmpty() ? LocalDate.parse(param) : null;
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Неверный формат даты!");
+        }
+    }
+    //addSeatsToRequest(request, flights);
+//
+//
+//
+//    private void addSeatsToRequest(HttpServletRequest request, List<Flight> flights) {
+//        for (Flight flight : flights) {
+//            List<Seat> seats = seatService.findSeatsByFlightId(flight.getFlightID());
+//            if (!seats.isEmpty()) {
+//                request.setAttribute("price_" + flight.getFlightID(), seats.get(0).getPrice());
+//            }
+//        }
+//    }
+
+    private void forwardToPage(HttpServletRequest request, HttpServletResponse response, String page) throws ServletException, IOException {
+        request.getRequestDispatcher(page).forward(request, response);
     }
 
 }

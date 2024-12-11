@@ -141,4 +141,50 @@ a{
     background-color: var(--white-color);
 }
 
+/* Заголовок модала */
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+
+/* Информация о рейсе */
+.flight-info {
+    margin-bottom: 1.5rem;
+}
+
+.flight-info .route {
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+}
+
+.flight-info .dates {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+/* Реквизиты оплаты */
+.payment-info-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--first-color);
+}
+
+/* Кнопки модала */
+.modal-footer .btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1.2rem;
+}
+.modal-footer {
+    display: flex;
+    justify-content: center;
+}
+
+/* Общая стоимость */
+#totalPrice {
+    color: var(--first-color);
+    font-weight: bold;
+}
+
 

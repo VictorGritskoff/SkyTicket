@@ -19,9 +19,6 @@
 <jsp:include page="/WEB-INF/views/common/flight_booking_modal.jsp"/>
 <div class="flights__container">
     <h2>Доступные рейсы</h2>
-    <c:if test="${empty flights}">
-        <p>Рейсы не найдены.</p>
-    </c:if>
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
@@ -41,7 +38,18 @@
                 <td>${flight.arrivalAirport.city} (${flight.arrivalAirport.country})</td>
                 <td>${flight.departureTime}</td>
                 <td>${flight.arrivalTime}</td>
-                <td><button class="btn btn-submit btn-sm" onclick="showBookingModal(${flight.flightID})">Забронировать</button></td>
+                <td>
+                    <button
+                            class="btn btn-submit btn-sm"
+                            onclick="showBookingModal(
+                                ${flight.flightID},
+                                    '${flight.departureAirport.city} (${flight.departureAirport.country}) - ${flight.arrivalAirport.city} (${flight.arrivalAirport.country})',
+                                    '${flight.departureTime} - ${flight.arrivalTime}',
+                                     ${flight.minPrice}
+                                    )">
+                        Забронировать
+                    </button>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

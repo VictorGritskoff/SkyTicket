@@ -49,6 +49,18 @@ public class SeatService {
         log.info("Места успешно удалены.");
     }
 
+    public List<Seat> findSeatsByFlightId(Long flightID) {
+        return seatRepository.findSeatsByFlightId(flightID);
+    }
+
+    public Double getSeatPriceForFlightId(Long flightID) {
+        Double price =seatRepository.findMinPriceByFlightId(flightID);
+        if (price == null) {
+            throw new IllegalArgumentException("Нет доступных мест на рейс");
+        }
+        return price;
+    }
+
     public void addSeatsToFlight(Long flightID, int seatCount, double price, String prefix) {
         if (seatCount <= 0) {
             throw new IllegalArgumentException("Количество мест должно быть положительным числом.");

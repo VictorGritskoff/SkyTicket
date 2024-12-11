@@ -161,9 +161,35 @@ function openAddSeatsModal(flightID) {
     }
 }
 
-function showBookingModal(flightId) {
-    document.getElementById('flightIdInput').value = flightId;
-    const bookingModal = new bootstrap.Modal(document.getElementById('bookingModal'));
-    bookingModal.show();
+function showBookingModal(flightId, routeInfo, dateInfo, minPrice) {
+    const modal = document.getElementById("bookingModal");
+
+    document.getElementById("routeInfo").innerText = routeInfo;
+    document.getElementById("dateInfo").innerText = dateInfo;
+    document.getElementById("flightIdInput").value = flightId;
+
+    modal.dataset.minPrice = minPrice;
+
+    const seatCountInput = document.getElementById("seatCount");
+    seatCountInput.value = 1;
+    calculateTotalPrice();
+
+    const bootstrapModal = new bootstrap.Modal(modal);
+    bootstrapModal.show();
 }
+
+function calculateTotalPrice() {
+    const modal = document.getElementById("bookingModal");
+    const seatCount = document.getElementById("seatCount").value || 1;
+    const minPrice = parseFloat(modal.dataset.minPrice) || 0;
+
+    const totalPrice = seatCount * minPrice;
+
+    document.getElementById("totalPrice").innerText = totalPrice.toFixed(2);
+}
+
+document.getElementById("seatCount").addEventListener("input", calculateTotalPrice);
+
+
+
 
