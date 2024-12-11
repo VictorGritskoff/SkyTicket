@@ -15,10 +15,9 @@ import org.mapstruct.factory.Mappers;
 import java.io.IOException;
 import java.util.List;
 
-// TODO оптимизация разделения слоей
 
 @Slf4j
-@WebServlet({"/dashboard/airlines", "/dashboard/airlines/delete"})
+@WebServlet({"/admin/dashboard/airlines", "/admin/dashboard/airlines/delete"})
 public class AirlinesDashboardServlet extends HttpServlet {
 
     private final AirlineService airlineService;
@@ -50,7 +49,7 @@ public class AirlinesDashboardServlet extends HttpServlet {
         } else {
             airlineService.createAirline(airlineDTO);
         }
-        response.sendRedirect(request.getContextPath() + "/dashboard/airlines");
+        response.sendRedirect(request.getContextPath() + "/admin/dashboard/airlines");
     }
 
     @Override

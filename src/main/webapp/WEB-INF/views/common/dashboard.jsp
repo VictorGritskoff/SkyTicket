@@ -17,19 +17,19 @@
             </a>
 
             <div class="nav__list">
-                <a href="${pageContext.request.contextPath}/dashboard/flights" class="nav__link ${isFlightsActive ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/flights" class="nav__link ${isFlightsActive ? 'active' : ''}">
                     <i class="bi bi-calendar-check"></i>
                     <span class="nav__name">Рейсы</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/dashboard/airport" class="nav__link ${isAirportActive ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/airport" class="nav__link ${isAirportActive ? 'active' : ''}">
                     <i class="bi bi-buildings"></i>
                     <span class="nav__name">Аэропорты</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/dashboard/airlines" class="nav__link ${isAirlinesActive ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/airlines" class="nav__link ${isAirlinesActive ? 'active' : ''}">
                     <i class="bi bi-airplane"></i>
                     <span class="nav__name">Авиалинии</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/dashboard/payments" class="nav__link ${isPaymentsActive ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/payments" class="nav__link ${isPaymentsActive ? 'active' : ''}">
                     <i class="bi bi-credit-card"></i>
                     <span class="nav__name">Платежи</span>
                 </a>

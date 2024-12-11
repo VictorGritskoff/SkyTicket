@@ -3,11 +3,13 @@ package com.example.skyticketdemo.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 
 @Entity
 @Getter
 @Setter
+@ToString
 @Table(name = "Users")
 public class User {
 
@@ -24,14 +26,11 @@ public class User {
     @Column(nullable = false, unique = true, length = 255)
     private String email;
 
-    @Column(length = 20)
-    private String phone;
-
     @Column(nullable = false, length = 255)
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "RoleID", referencedColumnName = "RoleID")
-    private Role role;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role = Role.USER;
 
 }

@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/bookSeats")
+@WebServlet("/user/bookSeats")
 public class BookSeatsServlet extends HttpServlet {
 
     private SeatService seatService;

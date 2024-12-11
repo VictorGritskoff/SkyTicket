@@ -8,7 +8,7 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class AirportBaseRepositoryImpl implements BaseRepository<Airport, Long> {
+public class AirportRepositoryImpl implements BaseRepository<Airport, Long> {
 
     @Override
     public void save(Airport airport) {

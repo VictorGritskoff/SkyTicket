@@ -23,9 +23,7 @@ public class AirlineService {
 
     public AirlineDTO getAirlineById(Long id) {
         Airline airline = airlineRepository.findById(id);
-        if (airline == null) {
-            throw new EntityNotFoundException("Авиалиния с id " + id + " не найдена.");
-        }
+        isEntityNull(airline, id);
         return airlineMapper.toDto(airline);
     }
 
@@ -44,9 +42,7 @@ public class AirlineService {
 
     public void updateAirline(Long id, AirlineDTO airlineDTO) {
         Airline existingAirline = airlineRepository.findById(id);
-        if (existingAirline == null) {
-            throw new EntityNotFoundException("Авиалиния с id " + id + " не найдена.");
-        }
+        isEntityNull(existingAirline, id);
 
         Airline updatedAirline = airlineMapper.toEntity(airlineDTO);
         updatedAirline.setAirlineID(id);
@@ -57,10 +53,15 @@ public class AirlineService {
 
     public void deleteAirline(Long id) {
         Airline airline = airlineRepository.findById(id);
-        if (airline == null) {
-            throw new EntityNotFoundException("Авиалиния с id " + id + " не найдена.");
-        }
+        isEntityNull(airline, id);
         airlineRepository.delete(airline);
         log.info("Авиалиния с id {} успешно удалена.", id);
+    }
+
+    private void isEntityNull(Object entity, Long id) {
+        if (entity == null) {
+            log.error("Airline with id {} not found", id);
+            throw new EntityNotFoundException("Авиалиния с id " + id + " не найдена.");
+        }
     }
 }

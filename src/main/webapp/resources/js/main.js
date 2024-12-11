@@ -1,6 +1,6 @@
 function showDeleteAirlineModal(airlineID) {
     if (confirm('Вы уверены, что хотите удалить эту авиалинию?')) {
-        fetch('/dashboard/airlines/delete?id=' + airlineID, {
+        fetch('/admin/dashboard/airlines/delete?id=' + airlineID, {
             method: 'DELETE',
         })
             .then(response => {
@@ -42,7 +42,7 @@ function openAirlineModal(action, airline = null) {
 
 function showDeleteAirportModal(airportID) {
     if (confirm('Вы уверены, что хотите удалить этот аэропорт?')) {
-        fetch('/dashboard/airport/delete?id=' + airportID, {
+        fetch('/admin/dashboard/airport/delete?id=' + airportID, {
             method: 'DELETE',
         })
             .then(response => {
@@ -87,7 +87,7 @@ function openAirportModal(action, airport = null) {
 
 function showDeleteFlightModal(flightID) {
     if (confirm('Вы уверены, что хотите удалить этот рейс?')) {
-        fetch('/dashboard/flights/delete?id=' + flightID, {
+        fetch('/admin/dashboard/flights/delete?id=' + flightID, {
             method: 'DELETE',
         })
             .then(response => {

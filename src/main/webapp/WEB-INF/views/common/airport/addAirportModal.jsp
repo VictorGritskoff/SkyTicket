@@ -9,7 +9,7 @@
 <div class="modal fade" id="addAirportModal" tabindex="-1" aria-labelledby="addAirportModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form id="addAirportForm" method="post" action="${pageContext.request.contextPath}/dashboard/airport">
+      <form id="addAirportForm" method="post" action="${pageContext.request.contextPath}/admin/dashboard/airport">
         <div class="modal-header">
           <h5 class="modal-title" id="addAirportModalLabel">Модальное окно</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>

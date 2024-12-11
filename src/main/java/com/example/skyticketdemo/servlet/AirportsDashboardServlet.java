@@ -1,7 +1,7 @@
 package com.example.skyticketdemo.servlet;
 
 import com.example.skyticketdemo.dto.AirportDTO;
-import com.example.skyticketdemo.repository.impl.AirportBaseRepositoryImpl;
+import com.example.skyticketdemo.repository.impl.AirportRepositoryImpl;
 import com.example.skyticketdemo.mapper.AirportMapper;
 import com.example.skyticketdemo.service.AirportService;
 import jakarta.servlet.ServletException;
@@ -16,14 +16,14 @@ import java.io.IOException;
 import java.util.List;
 
 @Slf4j
-@WebServlet({"/dashboard/airport", "/dashboard/airport/delete"})
+@WebServlet({"/admin/dashboard/airport", "/admin/dashboard/airport/delete"})
 public class AirportsDashboardServlet extends HttpServlet {
 
     private final AirportService airportService;
 
     public AirportsDashboardServlet() {
         AirportMapper airportMapper = Mappers.getMapper(AirportMapper.class);
-        this.airportService = new AirportService(new AirportBaseRepositoryImpl(), airportMapper);
+        this.airportService = new AirportService(new AirportRepositoryImpl(), airportMapper);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class AirportsDashboardServlet extends HttpServlet {
         } else {
             airportService.createAirport(airportDTO);
         }
-        resp.sendRedirect(req.getContextPath() + "/dashboard/airport");
+        resp.sendRedirect(req.getContextPath() + "/admin/dashboard/airport");
     }
 
     private AirportDTO extractAirportFromRequest(HttpServletRequest req) {

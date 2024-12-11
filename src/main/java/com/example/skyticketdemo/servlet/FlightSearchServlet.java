@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-@WebServlet("/searchFlights")
+@WebServlet("/public/searchFlights")
 public class FlightSearchServlet extends HttpServlet {
 
     private FlightService flightService;
@@ -70,18 +70,6 @@ public class FlightSearchServlet extends HttpServlet {
             throw new IllegalArgumentException("Неверный формат даты!");
         }
     }
-    //addSeatsToRequest(request, flights);
-//
-//
-//
-//    private void addSeatsToRequest(HttpServletRequest request, List<Flight> flights) {
-//        for (Flight flight : flights) {
-//            List<Seat> seats = seatService.findSeatsByFlightId(flight.getFlightID());
-//            if (!seats.isEmpty()) {
-//                request.setAttribute("price_" + flight.getFlightID(), seats.get(0).getPrice());
-//            }
-//        }
-//    }
 
     private void forwardToPage(HttpServletRequest request, HttpServletResponse response, String page) throws ServletException, IOException {
         request.getRequestDispatcher(page).forward(request, response);

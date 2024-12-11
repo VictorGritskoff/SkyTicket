@@ -6,10 +6,9 @@ import com.example.skyticketdemo.dto.FlightDTO;
 import com.example.skyticketdemo.mapper.FlightMapper;
 import com.example.skyticketdemo.mapper.SeatMapper;
 import com.example.skyticketdemo.repository.impl.AirlineRepositoryImpl;
-import com.example.skyticketdemo.repository.impl.AirportBaseRepositoryImpl;
+import com.example.skyticketdemo.repository.impl.AirportRepositoryImpl;
 import com.example.skyticketdemo.repository.impl.FlightRepositoryImpl;
 import com.example.skyticketdemo.repository.impl.SeatRepositoryImpl;
-import com.example.skyticketdemo.repository.interfac.SeatRepository;
 import com.example.skyticketdemo.service.FlightService;
 import com.example.skyticketdemo.service.SeatService;
 import jakarta.servlet.ServletException;
@@ -22,18 +21,18 @@ import org.mapstruct.factory.Mappers;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet({"/dashboard/flights", "/dashboard/flights/delete", "/dashboard/seats/add"})
+@WebServlet({"/admin/dashboard/flights", "/admin/dashboard/flights/delete", "/admin/dashboard/seats/add"})
 public class FlightDashboardServlet extends HttpServlet {
 
     private final FlightService flightService;
-    private final AirportBaseRepositoryImpl airportRepository;
+    private final AirportRepositoryImpl airportRepository;
     private final AirlineRepositoryImpl airlineRepository;
     private final SeatService seatService;
 
     public FlightDashboardServlet() {
         FlightRepositoryImpl flightRepository = new FlightRepositoryImpl();
         this.airlineRepository = new AirlineRepositoryImpl();
-        this.airportRepository = new AirportBaseRepositoryImpl();
+        this.airportRepository = new AirportRepositoryImpl();
         FlightMapper flightMapper = Mappers.getMapper(FlightMapper.class);
         this.flightService = new FlightService(flightRepository, airportRepository,
                 airlineRepository, flightMapper);
@@ -61,7 +60,7 @@ public class FlightDashboardServlet extends HttpServlet {
         } else {
             FlightDTO flightDTO = extractFlightFromRequest(request);
             flightService.createFlight(flightDTO);
-            response.sendRedirect(request.getContextPath() + "/dashboard/flights");
+            response.sendRedirect(request.getContextPath() + "/admin/dashboard/flights");
         }
     }
 
@@ -98,6 +97,6 @@ public class FlightDashboardServlet extends HttpServlet {
     private void addSeats(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Long flightID = Long.parseLong(request.getParameter("flightID"));
         seatService.addSeats(flightID, request);
-        response.sendRedirect(request.getContextPath() + "/dashboard/flights");
+        response.sendRedirect(request.getContextPath() + "/admin/dashboard/flights");
     }
 }

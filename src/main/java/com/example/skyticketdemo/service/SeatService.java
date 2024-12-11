@@ -54,7 +54,7 @@ public class SeatService {
     }
 
     public Double getSeatPriceForFlightId(Long flightID) {
-        Double price =seatRepository.findMinPriceByFlightId(flightID);
+        Double price = seatRepository.findMinPriceByFlightId(flightID);
         if (price == null) {
             throw new IllegalArgumentException("Нет доступных мест на рейс");
         }

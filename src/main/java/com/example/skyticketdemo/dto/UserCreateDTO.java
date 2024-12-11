@@ -1,15 +1,13 @@
 package com.example.skyticketdemo.dto;
 
-import com.example.skyticketdemo.entity.Role;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class UserDTO {
-    private Long userID;
+public class UserCreateDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private Role role;
+    private String password;
 }

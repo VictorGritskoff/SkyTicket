@@ -13,7 +13,7 @@
                 <h5 class="modal-title text-uppercase text-center w-100" id="bookingModalLabel">Бронирование мест</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="bookingForm" method="post" action="${pageContext.request.contextPath}/bookSeats">
+            <form id="bookingForm" method="post" action="${pageContext.request.contextPath}/user/bookSeats">
                 <div class="modal-body">
                     <input type="hidden" name="flightId" id="flightIdInput">
                     <div class="flight-info text-center mb-4">
