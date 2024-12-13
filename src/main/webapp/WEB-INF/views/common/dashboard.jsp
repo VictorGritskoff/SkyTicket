@@ -29,16 +29,15 @@
                     <i class="bi bi-airplane"></i>
                     <span class="nav__name">Авиалинии</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/admin/dashboard/payments" class="nav__link ${isPaymentsActive ? 'active' : ''}">
-                    <i class="bi bi-credit-card"></i>
-                    <span class="nav__name">Платежи</span>
-                </a>
             </div>
         </div>
 
-        <a href="#" class="nav__link">
-            <i class="bi bi-x-octagon"></i>
-            <span class="nav__name">Выход</span>
-        </a>
+        <form action="${pageContext.request.contextPath}/public/logout" method="post" style="display: inline;" id="logoutForm">
+            <a href="#" class="nav__link" onclick="document.getElementById('logoutForm').submit();">
+                <i class="bi bi-x-octagon"></i>
+                <span class="nav__name">Выход</span>
+            </a>
+        </form>
+
     </nav>
 </div>

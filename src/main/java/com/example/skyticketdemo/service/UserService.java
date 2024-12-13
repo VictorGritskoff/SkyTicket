@@ -55,4 +55,19 @@ public class UserService {
         }
         else throw new BadCredentialsException("Неверная почта или пароль");
     }
+
+    public void updateUser(Long id, UserDTO userDTO) {
+        User existingUser = userRepository.findById(id);
+
+        if (existingUser == null) {
+            throw new IllegalArgumentException("Пользователь с ID " + id + " не найден.");
+        }
+
+        existingUser.setFirstName(userDTO.getFirstName());
+        existingUser.setLastName(userDTO.getLastName());
+        existingUser.setEmail(userDTO.getEmail());
+
+        userRepository.update(existingUser);
+    }
+
 }

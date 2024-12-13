@@ -1,4 +1,4 @@
-package com.example.skyticketdemo.servlet;
+package com.example.skyticketdemo.servlet.common;
 
 import com.example.skyticketdemo.dto.UserCreateDTO;
 import com.example.skyticketdemo.mapper.UserMapperImpl;

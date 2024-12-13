@@ -1,4 +1,4 @@
-package com.example.skyticketdemo.servlet;
+package com.example.skyticketdemo.servlet.admin;
 
 import com.example.skyticketdemo.dto.AirlineDTO;
 import com.example.skyticketdemo.dto.AirportDTO;

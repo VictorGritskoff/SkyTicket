@@ -28,7 +28,6 @@
 <jsp:include page="/WEB-INF/views/common/dashboard.jsp"/>
 <jsp:include page="/WEB-INF/views/common/flight/addFlightModal.jsp"/>
 <jsp:include page="/WEB-INF/views/common/flight/addSeatsModal.jsp"/>
-<h1>Добро пожаловать!</h1>
 <main class="container mt-5 main-content">
     <h1>Список рейсов</h1>
     <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addFlightModal">
@@ -54,31 +53,6 @@
                 <td>${flight.departureTime}</td>
                 <td>${flight.arrivalTime}</td>
                 <td>
-                    <button class="btn btn-primary btn-sm"
-                            onclick="openFlightModal('edit', {
-                                    id: ${flight.flightID},
-                                    flightNumber: ${flight.flightNumber},
-                                    departureAirport: {
-                                    id: ${flight.departureAirport.airportID},
-                                    name: '${flight.departureAirport.airportName}',
-                                    city: '${flight.departureAirport.city}',
-                                    country: '${flight.departureAirport.country}'
-                                    },
-                                    arrivalAirport: {
-                                    id: ${flight.arrivalAirport.airportID},
-                                    name: '${flight.arrivalAirport.airportName}',
-                                    city: '${flight.arrivalAirport.city}',
-                                    country: '${flight.arrivalAirport.country}'
-                                    },
-                                    airline: {
-                                    id: ${flight.airline.airlineID},
-                                    name: '${flight.airline.airlineName}'
-                                    },
-                                    departureTime: '${flight.departureTime}',
-                                    arrivalTime: '${flight.arrivalTime}'
-                                    })">
-                        Редактировать
-                    </button>
                     <button class="btn btn-danger btn-sm"
                             onclick="showDeleteFlightModal(${flight.flightID})">
                         Удалить

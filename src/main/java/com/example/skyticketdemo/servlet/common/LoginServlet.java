@@ -1,4 +1,4 @@
-package com.example.skyticketdemo.servlet;
+package com.example.skyticketdemo.servlet.common;
 
 import com.example.skyticketdemo.dto.UserDTO;
 import com.example.skyticketdemo.exceptions.BadCredentialsException;
@@ -36,9 +36,11 @@ public class LoginServlet extends HttpServlet {
 
         try {
             UserDTO userDto = userService.authenticate(email, password);
+            System.out.println(userDto);
 
             HttpSession session = req.getSession();
-            session.setAttribute("user", userDto);
+            session.setAttribute("currentUser", userDto);
+            session.setAttribute("role", userDto.getRole());
 
             switch (userDto.getRole()) {
                 case ADMIN:
@@ -53,5 +55,4 @@ public class LoginServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/views/common/login-register.jsp").forward(req, resp);
         }
     }
-
 }

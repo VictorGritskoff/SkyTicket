@@ -1,4 +1,4 @@
-package com.example.skyticketdemo.servlet;
+package com.example.skyticketdemo.servlet.admin;
 
 import com.example.skyticketdemo.dto.AirportDTO;
 import com.example.skyticketdemo.repository.impl.AirportRepositoryImpl;
@@ -18,6 +18,8 @@ import java.util.List;
 @Slf4j
 @WebServlet({"/admin/dashboard/airport", "/admin/dashboard/airport/delete"})
 public class AirportsDashboardServlet extends HttpServlet {
+
+    private static final String INVALID_CHARACTERS_PATTERN = ".*[0-9\\{\\[\\/\\.].*";
 
     private final AirportService airportService;
 
@@ -44,6 +46,8 @@ public class AirportsDashboardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         AirportDTO airportDTO = extractAirportFromRequest(req);
+        validateAirportData(airportDTO.getAirportName(), airportDTO.getCity(), airportDTO.getCountry());
+
         if (req.getParameter("id") != null && !req.getParameter("id").isEmpty()) {
             Long id = Long.parseLong(req.getParameter("id"));
             airportService.updateAirport(id, airportDTO);
@@ -59,5 +63,20 @@ public class AirportsDashboardServlet extends HttpServlet {
         airportDTO.setCity(req.getParameter("city"));
         airportDTO.setCountry(req.getParameter("country"));
         return airportDTO;
+    }
+
+    private void validateName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Поле не может быть пустым.");
+        }
+        if (name.matches(INVALID_CHARACTERS_PATTERN)) {
+            throw new IllegalArgumentException("Название не может содержать цифры или экранирующие символы типа { [ / .");
+        }
+    }
+
+    private void validateAirportData(String airportName, String city, String country) {
+        validateName(airportName);
+        validateName(city);
+        validateName(country);
     }
 }

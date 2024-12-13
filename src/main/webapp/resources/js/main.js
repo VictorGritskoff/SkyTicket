@@ -105,6 +105,19 @@ function showDeleteFlightModal(flightID) {
     }
 }
 
+function openProfileModal(data = null) {
+    const firstNameField = document.getElementById('firstName');
+    const lastNameField = document.getElementById('lastName');
+    const emailField = document.getElementById('email');
+
+    firstNameField.value = data.firstName;
+    lastNameField.value = data.lastName;
+    emailField.value = data.email;
+
+    const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
+    modal.show();
+}
+
 function openFlightModal(action, data = null) {
     const modalTitle = document.getElementById('addFlightModalLabel');
     const flightNumberField = document.getElementById('flightNumber');

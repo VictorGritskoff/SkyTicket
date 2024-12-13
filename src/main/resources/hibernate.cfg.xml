@@ -15,7 +15,6 @@
         <mapping class="com.example.skyticketdemo.entity.Airline"/>
         <mapping class="com.example.skyticketdemo.entity.Airport"/>
         <mapping class="com.example.skyticketdemo.entity.Flight"/>
-        <mapping class="com.example.skyticketdemo.entity.Payment"/>
         <mapping class="com.example.skyticketdemo.entity.Seat"/>
         <mapping class="com.example.skyticketdemo.entity.Ticket"/>
         <mapping class="com.example.skyticketdemo.entity.User"/>

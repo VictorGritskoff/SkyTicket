@@ -128,7 +128,6 @@
             <h2 class="section__header">
                 Путешествуй и создавай воспоминания по всему миру
             </h2>
-            <button class="view__all">View All</button>
         </div>
         <div class="memories__grid">
             <div class="memories__card">

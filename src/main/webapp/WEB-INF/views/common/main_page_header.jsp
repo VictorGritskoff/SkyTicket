@@ -10,9 +10,9 @@
     <div class="nav__logo">SkyTicket</div>
     <ul class="nav__links">
         <li class="link"><a href="${pageContext.request.contextPath}/public">Главная</a></li>
-        <li class="link"><a href="#">Страны</a></li>
         <li class="link"><a href="${pageContext.request.contextPath}/user/profile">Профиль</a></li>
         <li class="link"><a href="${pageContext.request.contextPath}/public/about">О нас</a></li>
     </ul>
+
     <button class="btn">Войти</button>
 </nav>

@@ -14,4 +14,8 @@ public interface UserMapper {
     @Mapping(target = "userID", ignore = true)
     @Mapping(target = "role", ignore = true)
     User toEntity(UserCreateDTO userDTO);
+
+    @Mapping(target = "userID", ignore = true)
+    @Mapping(target = "role", ignore = true)
+    User toEntityUp(UserDTO userDTO);
 }

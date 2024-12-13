@@ -1,6 +1,9 @@
 package com.example.skyticketdemo.repository.impl;
 
+import com.example.skyticketdemo.entity.Flight;
 import com.example.skyticketdemo.entity.Seat;
+import com.example.skyticketdemo.entity.Ticket;
+import com.example.skyticketdemo.entity.User;
 import com.example.skyticketdemo.repository.interfac.SeatRepository;
 import com.example.skyticketdemo.utils.HibernateUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -10,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -136,7 +140,7 @@ public class SeatRepositoryImpl implements SeatRepository {
         }
     }
 
-    public boolean bookSeats(Long flightId, int seatCount) {
+    public boolean bookSeats(Long flightId, int seatCount, Long userId) {
         try (Session session = HibernateUtil.getSession()) {
             Transaction tx = session.beginTransaction();
             try {
@@ -157,10 +161,27 @@ public class SeatRepositoryImpl implements SeatRepository {
                     return false;
                 }
 
+                Flight flight = session.get(Flight.class, flightId);
+                User user = session.get(User.class, userId);
+
+                if (flight == null || user == null) {
+                    tx.rollback();
+                    return false;
+                }
+
                 for (int i = 0; i < seatCount; i++) {
                     Seat seat = availableSeats.get(i);
                     seat.setIsBooked(true);
                     session.update(seat);
+
+                    Ticket ticket = new Ticket();
+                    ticket.setUser(user);
+                    ticket.setFlight(flight);
+                    ticket.setSeat(seat);
+                    ticket.setAmount(seat.getPrice());
+                    ticket.setBookingDate(LocalDateTime.now());
+
+                    session.persist(ticket);
                 }
 
                 tx.commit();
@@ -172,4 +193,5 @@ public class SeatRepositoryImpl implements SeatRepository {
             }
         }
     }
+
 }

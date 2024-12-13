@@ -70,5 +70,4 @@ public class UserRepositoryImpl implements BaseRepository<User, Long> {
                     .uniqueResult();
         }
     }
-
 }

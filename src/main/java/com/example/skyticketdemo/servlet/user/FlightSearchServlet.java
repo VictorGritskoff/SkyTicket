@@ -1,4 +1,4 @@
-package com.example.skyticketdemo.servlet;
+package com.example.skyticketdemo.servlet.user;
 
 import com.example.skyticketdemo.entity.Flight;
 import com.example.skyticketdemo.repository.impl.FlightRepositoryImpl;

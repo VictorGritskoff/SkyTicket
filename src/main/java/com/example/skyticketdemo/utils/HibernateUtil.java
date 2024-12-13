@@ -20,7 +20,6 @@ public class HibernateUtil {
                     .addAnnotatedClass(Airline.class)
                     .addAnnotatedClass(Airport.class)
                     .addAnnotatedClass(Flight.class)
-                    .addAnnotatedClass(Payment.class)
                     .addAnnotatedClass(Seat.class)
                     .addAnnotatedClass(Ticket.class)
                     .addAnnotatedClass(User.class)

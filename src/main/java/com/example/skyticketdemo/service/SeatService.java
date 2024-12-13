@@ -104,7 +104,7 @@ public class SeatService {
         }
     }
 
-    public boolean bookSeats(Long flightId, int seatCount) {
-        return seatRepository.bookSeats(flightId, seatCount);
+    public boolean bookSeats(Long flightId, int seatCount, Long userId) {
+        return seatRepository.bookSeats(flightId, seatCount, userId);
     }
 }
